@@ -6,6 +6,15 @@ public class PlayerScript : MonoBehaviour
 {
     // public Rigidbody player;
     public float moveSpeed = 6;
+    private SpriteRenderer sprite;
+
+    private void Start(){
+        sprite = GetComponent<SpriteRenderer>();
+    if (sprite == null)
+    {
+        Debug.LogError("Player Sprite is missing a renderer");
+    }
+    }
     private void Update()
     {
         Vector2 inputVector = new Vector2(0, 0);
@@ -20,18 +29,16 @@ public class PlayerScript : MonoBehaviour
          if (Input.GetKey(KeyCode.D))
         {
             inputVector.x = +1;
-            // transform.position.y *= -1; 
+            sprite.flipX = true;
         }
          if (Input.GetKey(KeyCode.A))
         {
             inputVector.x = -1;
+            sprite.flipX = false;
         }
         inputVector = inputVector.normalized;
-        Debug.Log(inputVector);
         transform.position += (Vector3)inputVector * moveSpeed * Time.deltaTime;
-        Debug.Log(inputVector);
-        inputVector = new Vector2(0, 0);
-
+     
     }
 
 }
