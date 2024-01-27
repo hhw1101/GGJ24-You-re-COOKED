@@ -11,7 +11,7 @@ public class PlayerScript : MonoBehaviour
     public double leftLimit = -6.25;
     public double rightLimit = 6.23;
     public double topLimit = 3.86;
-    public double    bottomLimit = -2.91; // Z needs to be lower than cabinets
+    public double bottomLimit = -2.91; // Z needs to be lower than cabinets
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
@@ -42,7 +42,11 @@ public class PlayerScript : MonoBehaviour
             sprite.flipX = false;
         }
         inputVector = inputVector.normalized;
-        transform.position += (Vector3)inputVector * moveSpeed * Time.deltaTime;
+        if (transform.position.x < rightLimit && transform.position.x > leftLimit && transform.position.y < topLimit && transform.position.y > bottomLimit)
+        {
+            transform.position += (Vector3)inputVector * moveSpeed * Time.deltaTime;
+        }
+        Debug.Log(transform.position);
 
     }
 
