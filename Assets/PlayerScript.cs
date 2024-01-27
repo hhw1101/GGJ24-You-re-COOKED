@@ -42,10 +42,9 @@ public class PlayerScript : MonoBehaviour
             sprite.flipX = false;
         }
         inputVector = inputVector.normalized;
-        if (transform.position.x < rightLimit && transform.position.x > leftLimit && transform.position.y < topLimit && transform.position.y > bottomLimit)
-        {
-            transform.position += (Vector3)inputVector * moveSpeed * Time.deltaTime;
-        }
+
+        transform.position += (Vector3)inputVector * moveSpeed * Time.deltaTime;
+
         Debug.Log(transform.position);
 
     }
