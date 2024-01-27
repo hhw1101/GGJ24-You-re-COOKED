@@ -8,6 +8,14 @@ public class PlayerScript : MonoBehaviour
     public float moveSpeed = 6;
     private SpriteRenderer sprite;
 
+    // public double leftLimit = -6.25;
+
+    // public double rightLimit = 6.23;
+
+    // public double topLimit = 3.86;
+
+    // public double bottomLimit = -2.91; 
+
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
@@ -16,12 +24,9 @@ public class PlayerScript : MonoBehaviour
             Debug.LogError("Player Sprite is missing a renderer");
         }
     }
+
     private void Update()
     {
-        public float leftLimit = -6.25;
-        public float rightLimit = 6.23;
-        public float topLimit = 3.86;
-        public float bottomLimit = -2.91; // Z needs to be lower than cabinets
         Vector2 inputVector = new Vector2(0, 0);
         if (Input.GetKey(KeyCode.W))
         {
@@ -42,7 +47,16 @@ public class PlayerScript : MonoBehaviour
             sprite.flipX = false;
         }
         inputVector = inputVector.normalized;
-        transform.position += (Vector3)inputVector * moveSpeed * Time.deltaTime;
+        if (Physics2D.Raycast(transform.position, inputVector, 0.2f))
+        {
+            transform.position += (Vector3)inputVector * moveSpeed * Time.deltaTime;
+        }
+        else
+        {
+            Debug.Log("Collide");
+        }
+        // Debug.Log(transform.position);
+
 
     }
 
